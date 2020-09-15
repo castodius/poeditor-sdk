@@ -1,13 +1,14 @@
 const path = require('path')
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   context: __dirname,
   mode: 'production',
   entry: './src/index.ts',
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   resolve: {
-    extensions: ['.mjs', '.json', '.ts'],
+    extensions: ['.mjs', '.json', '.ts', 'js'],
     symlinks: false,
     plugins: [new TsConfigPathsPlugin()]
   },
@@ -16,6 +17,7 @@ module.exports = {
     path: path.join(__dirname, '.dist'),
     filename: 'index.js'
   },
+  externals: [nodeExternals()],
   target: 'node',
   module: {
     rules: [
