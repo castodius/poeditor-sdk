@@ -22,11 +22,14 @@
       "@test/*": [
         "../test/*"
       ],
-      "@models/*" : [
+      "@models/*": [
         "models/*"
       ],
       "@helpers/*": [
         "helpers/*"
+      ],
+      "@client/*": [
+        "client/*"
       ]
     }
   },
