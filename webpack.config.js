@@ -26,8 +26,6 @@ module.exports = {
         loader: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
         options: {
-          transpileOnly: true,
-          happyPackMode: true
         }
       }
     ]
