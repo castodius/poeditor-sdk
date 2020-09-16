@@ -5,8 +5,6 @@ import FormData from 'form-data'
 import { createReadStream } from 'fs'
 import { stringify } from 'querystring'
 
-import { variables } from '@helpers/env'
-
 import * as POEditorModels from '@models/poeditor'
 
 export class POEditor {
@@ -29,7 +27,7 @@ export class POEditor {
    * Object with keys and values which will be used as x-www-form-urlencoded data
    */
   private callAPI = async <T>(path: string, params?: POEditorModels.POERequestBase): Promise<T> => {
-    const { data } = await axios.post(variables.POEditorBaseUrl + path, stringify({ api_token: this.token, ...params }), { timeout: 10000 })
+    const { data } = await axios.post(process.env.POEDITOR_URL + path, stringify({ api_token: this.token, ...params }), { timeout: 10000 })
     this.verifyOutput(data)
     return data
   };
@@ -118,7 +116,7 @@ export class POEditor {
     })
 
     // This is the only endpoint which does not support x-www-form-urlencoded format. This is why the request to POEditor takes place within the code
-    const { data }: { data: POEditorModels.UploadProjectResponse } = await axios.post(variables.POEditorBaseUrl + '/projects/upload'
+    const { data }: { data: POEditorModels.UploadProjectResponse } = await axios.post(process.env.POEDITOR_URL + '/projects/upload'
       , form
       , {
         headers: form.getHeaders()
