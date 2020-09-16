@@ -26,6 +26,7 @@ module.exports = {
         loader: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
         options: {
+          compiler: 'ttypescript',
         }
       }
     ]

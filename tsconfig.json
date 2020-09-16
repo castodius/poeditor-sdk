@@ -16,8 +16,14 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "target": "es2020",
-    "outDir": "dist",
+    "outDir": ".dist",
     "baseUrl": "src",
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ],
     "paths": {
       "@test/*": [
         "../test/*"
