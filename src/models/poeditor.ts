@@ -154,12 +154,6 @@ export interface UpdateStatistics {
   translations?: UpdateStatisticsObject;
 }
 
-export interface Contributor {
-  name: string;
-  email: string;
-  permissions: (AdminContributorPermissions | ContributorPermissions)[];
-}
-
 export interface ContributorPermissionsBase {
   project: {
     id: string;
@@ -175,6 +169,12 @@ export interface AdminContributorPermissions extends ContributorPermissionsBase 
 export interface ContributorPermissions extends ContributorPermissionsBase {
   type: ContributorType.CONTRIBUTOR;
   languages: string[]
+}
+
+export interface Contributor {
+  name: string;
+  email: string;
+  permissions: (AdminContributorPermissions | ContributorPermissions)[];
 }
 
 /**
