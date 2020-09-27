@@ -1,6 +1,6 @@
 // to be tested
 import { POEditor } from '@client/poeditor'
-import { CompactProject } from '@models/poeditor'
+import { AddProjectRequest, CompactProject } from '@models/poeditor'
 
 // to be mocked
 
@@ -41,6 +41,12 @@ describe('client/poeditor', () => {
       const output = await client.listProjects()
 
       expect(output).toEqual(expect.arrayContaining([]))
+    })
+  })
+
+  describe('error handling', () => {
+    it('should throw if something went wrong', async () => {
+      await expect(client.addProject({} as AddProjectRequest)).rejects.toThrow('Project name is mandatory!') //  <- message at time of writing this test
     })
   })
 
