@@ -14,9 +14,9 @@ import { sleep } from '@test/tools'
  */
 describe('client/poeditor', () => {
   const client = new POEditor(process.env.API_KEY as string)
-  const projectNames = ['project 1', 'project 2']
   const projects: CompactProject[] = []
-  const description = 'Some text'
+  const projectName = 'project 1'
+  const description = 'A description'
 
   beforeEach(() => {
   })
@@ -31,53 +31,45 @@ describe('client/poeditor', () => {
 
       expect(output).toEqual(expect.arrayContaining([]))
     })
-
-    /* it('should return updated information if something gets deleted', async () => {
-      await client.deleteProject({
-        id: projects[0].id
-      })
-      projects.shift()
-
-      const output = await client.listProjects()
-
-      expect(output).toHaveLength(1)
-      expect(output[0]).toMatchObject({
-        name: projectNames[1]
-      })
-    }) */
   })
 
-  describe('add projects', () => {
-    it('should add projects', async () => {
-      await client.addProject({
-        name: projectNames[0]
-      })
-      await client.addProject({
-        name: projectNames[1],
+  describe('add project', () => {
+    it('should add a project', async () => {
+      const output = await client.addProject({
+        name: 'project 1',
         description
       })
+      projects.push(output)
 
-      const output = await client.listProjects()
-      projects.push(...output)
-
-      expect(output).toHaveLength(2)
-      expect(output[0]).toMatchObject({
-        name: projectNames[0]
-      })
-      expect(output[1]).toMatchObject({
-        name: projectNames[1]
+      expect(output).toMatchObject({
+        name: projectName,
+        description
       })
     })
   })
 
   describe('view project', () => {
     it('should return project specific data', async () => {
-      const output = await client.viewProject({ id: projects[1].id })
+      const output = await client.viewProject({ id: projects[0].id })
 
       expect(output).toMatchObject({
-        name: projectNames[1],
+        name: projectName,
         description
       })
+    })
+  })
+
+  describe('update project', () => {
+    it('should update project data', async () => {
+      const input = {
+        id: projects[0].id,
+        description: 'New text!',
+        name: 'New name'
+      }
+
+      const output = await client.updateProject(input)
+
+      expect(output).toMatchObject(input)
     })
   })
 })
