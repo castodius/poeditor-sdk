@@ -1,7 +1,7 @@
 const path = require('path')
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   context: __dirname,
@@ -27,7 +27,7 @@ module.exports = {
         loader: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
         options: {
-          compiler: 'ttypescript',
+          compiler: 'ttypescript'
         }
       }
     ]
