@@ -10,7 +10,7 @@ import { sleep } from '@test/tools'
 // models
 
 /**
- * These tests are chained. Please note that the beforeAll will throw if the account has more than zero projects.
+ * These tests are chained. PLEASE NOTE that the afterAll purges all projects bound to the API key
  */
 describe('client/poeditor', () => {
   const client = new POEditor(process.env.API_KEY as string)
@@ -23,6 +23,16 @@ describe('client/poeditor', () => {
 
   afterEach(async () => {
     await sleep(100) // scared of calling the API too many times in a short period of time
+  })
+
+  afterAll(async () => {
+    const projects = await client.listProjects()
+
+    for (const project of projects) {
+      await client.deleteProject({
+        id: project.id
+      })
+    }
   })
 
   describe('list projects', () => {
