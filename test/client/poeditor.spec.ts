@@ -11,6 +11,7 @@ import { sleep } from '@test/tools'
 
 /**
  * These tests are chained. PLEASE NOTE that the afterAll purges all projects bound to the API key
+ * The tests do not come in the same order as the methods in client code
  */
 describe('client/poeditor', () => {
   const client = new POEditor(process.env.API_KEY as string)
@@ -103,6 +104,27 @@ describe('client/poeditor', () => {
       const secondOutput = await client.listProjects()
 
       expect(secondOutput).toHaveLength(1)
+    })
+  })
+
+  describe('get available languages', () => {
+    it('should return a list of all available languages', async () => {
+      const output = await client.getAvailableLanguages()
+
+      expect(output).toBeInstanceOf(Array)
+      expect(output[0]).toMatchObject({
+        name: expect.stringMatching(/.*/),
+        code: expect.stringMatching(/^[a-z]{2}$/)
+      })
+    })
+  })
+
+  describe('add language', () => {
+    it('should add a language to a project', async () => {
+      await client.addLanguage({
+        id: projects[0].id,
+        language: 'sv'
+      })
     })
   })
 })
