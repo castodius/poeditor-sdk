@@ -146,4 +146,20 @@ describe('client/poeditor', () => {
       expect(output).toHaveLength(1)
     })
   })
+
+  describe('delete language', () => {
+    it('should delete a language from a project', async () => {
+      await client.addLanguage({
+        id,
+        language: 'en'
+      })
+      const output = await client.getProjectLanguages({ id })
+      expect(output).toHaveLength(2)
+
+      await client.deleteLanguage({ id, language: 'en' })
+
+      const secondOutput = await client.getProjectLanguages({ id })
+      expect(secondOutput).toHaveLength(1)
+    })
+  })
 })
