@@ -162,4 +162,39 @@ describe('client/poeditor', () => {
       expect(secondOutput).toHaveLength(1)
     })
   })
+
+  describe('list terms', () => {
+    it('should list terms', async () => {
+      const output = await client.listTerms({ id })
+
+      expect(output).toHaveLength(0)
+    })
+  })
+
+  describe('add terms', () => {
+    it('should add terms to a project', async () => {
+      const output = await client.addTerms({
+        id,
+        terms: [
+          {
+            term: 'term1',
+            context: 'context1'
+          },
+          {
+            term: 'term2',
+            context: 'context2'
+          }
+        ]
+      })
+
+      expect(output).toEqual({
+        parsed: 2,
+        added: 2
+      })
+
+      const secondOutput = await client.listTerms({ id })
+
+      expect(secondOutput).toHaveLength(2)
+    })
+  })
 })
