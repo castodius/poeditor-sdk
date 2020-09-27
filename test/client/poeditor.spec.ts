@@ -127,12 +127,23 @@ describe('client/poeditor', () => {
     })
   })
 
+  describe('get project languages', () => {
+    it('should list project languages', async () => {
+      const output = await client.getProjectLanguages({ id })
+
+      expect(output).toHaveLength(0)
+    })
+  })
+
   describe('add language', () => {
     it('should add a language to a project', async () => {
       await client.addLanguage({
         id,
         language: 'sv'
       })
+      const output = await client.getProjectLanguages({ id })
+
+      expect(output).toHaveLength(1)
     })
   })
 })
