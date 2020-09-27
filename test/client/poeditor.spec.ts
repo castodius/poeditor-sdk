@@ -18,6 +18,7 @@ describe('client/poeditor', () => {
   const projects: CompactProject[] = []
   const projectName = 'project 1'
   const description = 'A description'
+  let id: number
 
   beforeEach(() => {
   })
@@ -57,6 +58,7 @@ describe('client/poeditor', () => {
         description
       })
       projects.push(output)
+      id = output.id
 
       expect(output).toMatchObject({
         name: projectName,
@@ -67,7 +69,7 @@ describe('client/poeditor', () => {
 
   describe('view project', () => {
     it('should return project specific data', async () => {
-      const output = await client.viewProject({ id: projects[0].id })
+      const output = await client.viewProject({ id })
 
       expect(output).toMatchObject({
         name: projectName,
@@ -79,7 +81,7 @@ describe('client/poeditor', () => {
   describe('update project', () => {
     it('should update project data', async () => {
       const input = {
-        id: projects[0].id,
+        id,
         description: 'New text!',
         name: 'New name'
       }
@@ -128,7 +130,7 @@ describe('client/poeditor', () => {
   describe('add language', () => {
     it('should add a language to a project', async () => {
       await client.addLanguage({
-        id: projects[0].id,
+        id,
         language: 'sv'
       })
     })
