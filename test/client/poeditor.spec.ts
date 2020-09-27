@@ -82,4 +82,27 @@ describe('client/poeditor', () => {
       expect(output).toMatchObject(input)
     })
   })
+
+  describe('delete project', () => {
+    /**
+     * Weird test structure
+     */
+    it('should delete a project', async () => {
+      const project = await client.addProject({
+        name: 'tmp'
+      })
+
+      const output = await client.listProjects()
+
+      expect(output).toHaveLength(2)
+      expect(output[1]).toMatchObject({
+        id: project.id
+      })
+
+      await client.deleteProject({ id: project.id })
+      const secondOutput = await client.listProjects()
+
+      expect(secondOutput).toHaveLength(1)
+    })
+  })
 })
