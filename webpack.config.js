@@ -2,6 +2,7 @@ const path = require('path')
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const Dotenv = require('dotenv-webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   context: __dirname,
@@ -34,6 +35,18 @@ module.exports = {
     ]
   },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'README.MD',
+          to: '.'
+        },
+        {
+          from: 'package.json',
+          to: '.'
+        }
+      ]
+    })
   ]
 }
