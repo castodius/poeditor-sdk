@@ -27,6 +27,7 @@ module.exports = {
         loader: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
         options: {
+          configFile: 'tsconfig.build.json',
           compiler: 'ttypescript'
         }
       }
