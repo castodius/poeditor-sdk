@@ -260,93 +260,273 @@ export interface POEditorResponseBase {
   }
 }
 
+/**
+ * Compact project information. Call view project to get more information
+ */
 export interface CompactProject {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Project name
+   */
   name: string;
+  /**
+   * Set to 1 if the project is public
+   */
   public: POBoolean;
+  /**
+   * ???
+   */
   open: POBoolean;
+  /**
+   * Date of creation
+   */
   created: string;
 }
 
+/**
+ * Richer project information
+ */
 export interface Project extends CompactProject {
+  /**
+   * Project description
+   */
   description: string;
+  /**
+   * Reference language of the project
+   */
   reference_language: string;
+  /**
+   * Number of terms
+   */
   terms: number;
 }
 
+/**
+ * Language object
+ */
 export interface Language {
+  /**
+   * Name of language
+   */
   name: string;
+  /**
+   * ISO 639-1 language code
+   */
   code: string;
 }
 
+/**
+ * Object containing information about translations for a specific language in a project
+ */
 export interface ProjectLanguage extends Language {
+  /**
+   * Number of translations done
+   */
   translations: number;
+  /**
+   * Percentage of translations done
+   */
   percentage: number;
+  /**
+   * Last update date
+   */
   updated: string;
 }
 
+/**
+ * Term object
+ */
 export interface TermBase {
+  /**
+   * Term key. For example "MY_KEY"
+   */
   term: string;
+  /**
+   * Combined with term to generate a unique identifier
+   */
   context: string;
+  /**
+   * Plural of term
+   */
   plural?: string;
+  /**
+   * Reference for term
+   */
   reference?: string;
+  /**
+   * Tags attached to term
+   */
   tags?: string[];
+  /**
+   * Comment to add to term
+   */
   comment?: string;
 }
 
+/**
+ * Returned when making changes to terms of a project
+ */
 export interface Term extends TermBase {
+  /**
+   * Created date
+   */
   created: string;
+  /**
+   * Updated date
+   */
   updated: string;
+  /**
+   * Translations for the term
+   */
   translation: {
+    /**
+     * Translation of the term
+     */
     content: TranslationContent;
+    /**
+     * Set to 1 if fuzzy
+     */
     fuzzy: POBoolean;
+    /**
+     * Set to 1 if proofread
+     */
     proofread: POBoolean;
+    /**
+     * Updated date
+     */
     updated: string;
   };
 }
 
+/**
+ * Used when changing term/context of a term
+ */
 export interface UpdateTerm extends TermBase {
+  /**
+   * New term to use instead of existing term
+   */
   new_term: string;
+  /**
+   * New context to use instead of existing context
+   */
   new_context: string;
 }
 
+/**
+ * Object used when adding a comment to a term
+ */
 export interface AddTermComment {
+  /**
+   * Term to add comment to
+   */
   term: string;
+  /**
+   * Context to add comment to
+   */
   context: string;
+  /**
+   * The comment. Free text string.
+   */
   comment: string;
 }
 
+/**
+ * Object used when deleting a term
+ */
 export interface DeleteTerm {
+  /**
+   * Term to delete
+   */
   term: string;
+  /**
+   * Term context
+   */
   context: string;
 }
 
+/**
+ * Statistics returned when modifying terms/translations
+ */
 export interface UpdateStatisticsObject {
+  /**
+   * Number of parsed terms
+   */
   parsed?: number,
+  /**
+   * Number of terms added
+   */
   added?: number,
+  /**
+   * Number of terms added
+   */
   updated?: number,
+  /**
+   * Number of terms deleted
+   */
   deleted?: number
 }
 
+/**
+ * Object returned when modifying a project/terms/translations
+ */
 export interface UpdateStatistics {
+  /**
+   * Term statistics updates
+   */
   terms?: UpdateStatisticsObject;
+  /**
+   * Translations statistics updates
+   */
   translations?: UpdateStatisticsObject;
 }
 
+/**
+ * Base object for contributor permissions
+ */
 export interface ContributorPermissionsBase {
+  /**
+   * Project for which user has some sort of access
+   */
   project: {
+    /**
+     * Project id
+     */
     id: string;
+    /**
+     * Project name
+     */
     name: string;
   }
+  /**
+   * Set to true if contributor is a proofreader
+   */
   proofreader: boolean
 }
 
+/**
+ * Admin contributor object
+ */
 export interface AdminContributorPermissions extends ContributorPermissionsBase {
+  /**
+   * Admin user type
+   */
   type: ContributorType.ADMIN;
 }
 
+/**
+ * Regular contributor object
+ */
 export interface ContributorPermissions extends ContributorPermissionsBase {
+  /**
+   * Contributot user type
+   */
   type: ContributorType.CONTRIBUTOR;
+  /**
+   * Languages which the contributor has access to
+   */
   languages: string[]
 }
 
