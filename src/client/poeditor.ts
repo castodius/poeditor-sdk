@@ -113,7 +113,7 @@ export class POEditor {
       }
     })
 
-    // This is the only endpoint which does not support x-www-form-urlencoded format. This is why the request to POEditor takes place within the code
+    // This is the only endpoint which does not support x-www-form-urlencoded format. This is why the request to POEditor takes place within the scope of this function
     const { data }: { data: POEditorModels.UploadProjectResponse } = await axios.post(process.env.POEDITOR_URL + '/projects/upload'
       , form
       , {
