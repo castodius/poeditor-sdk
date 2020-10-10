@@ -1,32 +1,111 @@
+/**
+ * Possible action completion answers from POEditor
+ */
 export enum Status {
+  /**
+   * The action succeeded
+   */
   SUCCESS = 'success',
+  /**
+   * The action failed
+   */
   FAIL = 'fail'
 }
 
+/**
+ * True and false according to POEditor. 0 means False, 1 true
+ */
 export type POBoolean = 0 | 1;
 
+/**
+ * The different file types supported by POEditor. See https://poeditor.com/help/#SupportedFormats for more information
+ */
 export enum FileType {
+  /**
+   * Gettext
+   */
   PO = 'po',
+  /**
+   * Gettext
+   */
   POT = 'pot',
+  /**
+   * Machine Object
+   */
   MO = 'mo',
+  /**
+   * Excel
+   */
   XLS = 'xls',
+  /**
+   * Excel
+   */
   XLSX = 'xlsx',
+  /**
+   * Comma separated values
+   */
   CSV = 'csv',
+  /**
+   * INI
+   */
   INI = 'ini',
+  /**
+   * Microsoft Resources
+   */
   RES = 'resw',
+  /**
+   * Microsoft Resources
+   */
   RESX = 'resx',
+  /**
+   * Android Resources
+   */
   ANDROID_STRINGS = 'android_strings',
+  /**
+   * Apple Strings
+   */
   APPLE_STRING = 'apple_strings',
+  /**
+   * iOS Xliff
+   */
   XLIFF = 'xliff',
+  /**
+   * Java Properties
+   */
   PROPERTIES = 'properties',
+  /**
+   * Key-Value JSON
+   */
   KEY_VALUE_JSON = 'key_value_json',
+  /**
+   * Standard JSON
+   */
   JSON = 'json',
+  /**
+   * YAML
+   */
   YML = 'yml',
+  /**
+   * Angular XLIFF
+   */
   XLF = 'xlf',
+  /**
+   * Angular XMB
+   */
   XMB = 'xmb',
-  XTB = 'xtb'
+  /**
+   * Angular XTB
+   */
+  XTB = 'xtb',
+  /**
+   * ARB
+   */
+  ARB = 'arb'
 }
 
+/**
+ * The different filters you can use when exporting data
+ */
 export enum ExportFilter {
   TRANSLATED = 'translated',
   UNTRANSLATED = 'untranslated',
