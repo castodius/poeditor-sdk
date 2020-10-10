@@ -287,7 +287,7 @@ export interface CompactProject {
 }
 
 /**
- * Richer project information
+ * Rich project information
  */
 export interface Project extends CompactProject {
   /**
@@ -540,67 +540,164 @@ export interface Contributor {
  * Beginning of requests and response
  */
 
+/**
+  * Response when listing projects
+  */
 export interface ListProjectsResponse extends POEditorResponseBase {
   result: {
+    /**
+     * List of projects
+     */
     projects: CompactProject[]
   }
 }
 
+/**
+ * Request when viewing a project
+ */
 export interface ViewProjectRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
 }
 
+/**
+ * Response when viewing a project
+ */
 export interface ViewProjectResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Project data
+     */
     project: Project
   }
 }
 
+/**
+ * Request when adding a project
+ */
 export interface AddProjectRequest {
+  /**
+   * Name of project
+   */
   name: string;
+  /**
+   * Project description
+   */
   description?: string;
 }
 
+/**
+ * Response when adding a project
+ */
 export interface AddProjectResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Project data
+     */
     project: Project;
   }
 }
 
+/**
+ * Request when updating a project
+ */
 export interface UpdateProjectRequest {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * New project name
+   */
   name?: string;
+  /**
+   * New project description
+   */
   description?: string;
+  /**
+   * New referene language. Must be a part of the available languages for a project
+   */
   reference_language?: string;
 }
 
+/**
+ * Respone when updating a project
+ */
 export interface UpdateProjectResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Project data
+     */
     project: Project;
   }
 }
 
+/**
+ * Request when deleting a project
+ */
 export interface DeleteProjectRequest {
+  /**
+   * Project id
+   */
   id: number;
 }
 
-export interface DeleteProjectResponse extends POEditorResponseBase {
+/**
+ * Response when deleting a project
+ */
+export interface DeleteProjectResponse extends POEditorResponseBase {}
 
-}
-
+/**
+ * Request when uploading a project via file
+ */
 export interface UploadProjectRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Type of update
+   */
   updating: UpdateType;
+  /**
+   * File path to location on disk.
+   */
   file: string;
+  /**
+   * Language to update
+   */
   language?: string;
+  /**
+   * Overwrite matching terms
+   */
   overwrite?: POBoolean;
+  /**
+   * Purge everything not present in the file. Dangerous operation.
+   */
   sync_terms?: POBoolean;
+  /**
+   * Tags for all uploaded terms
+   */
   tags?: string[] | UpdateTagObject;
+  /**
+   * For Xliff format.
+   */
   read_from_source?: POBoolean;
+  /**
+   * Set other languages as fuzzy
+   */
   fuzzy_trigger?: POBoolean;
 }
 
+/**
+ * Response when uploading a project
+ */
 export interface UploadProjectResponse extends POEditorResponseBase {
+  /**
+   * Upload statistics
+   */
   result: UpdateStatistics
 }
 
@@ -778,9 +875,7 @@ export interface AddContributorRequest extends POERequestBase {
   admin?: POBoolean;
 }
 
-export interface AddContributorResponse extends POEditorResponseBase {
-
-}
+export interface AddContributorResponse extends POEditorResponseBase {}
 
 export interface RemoveContributorRequest extends POERequestBase {
   id: number;
@@ -788,6 +883,4 @@ export interface RemoveContributorRequest extends POERequestBase {
   language?: string;
 }
 
-export interface RemoveContributorResponse extends POEditorResponseBase {
-
-}
+export interface RemoveContributorResponse extends POEditorResponseBase {}
