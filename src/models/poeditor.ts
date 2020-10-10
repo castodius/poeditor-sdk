@@ -107,55 +107,155 @@ export enum FileType {
  * The different filters you can use when exporting data
  */
 export enum ExportFilter {
+  /**
+   * Export translated terms
+   */
   TRANSLATED = 'translated',
+  /**
+   * Export untranslated terms
+   */
   UNTRANSLATED = 'untranslated',
+  /**
+   * Export fuzzy terms
+   */
   FUZZY = 'fuzzy',
+  /**
+   * Export terms which are not fuzzy
+   */
   NOT_FUZZY = 'not_fuzzy',
+  /**
+   * Export terms that were translated automatically
+   */
   AUTOMATIC = 'automatic',
+  /**
+   * Export terms that were not translated automatically
+   */
   NOT_AUTOMATIC = 'not_automatic',
+  /**
+   * Export terms have been proofread
+   */
   PROOFREAD = 'proofread',
+  /**
+   * Export terms have not been proofread
+   */
   NOT_PROOFREAD = 'not_proofread'
 }
 
+/**
+ * The type of update
+ */
 export enum UpdateType {
+  /**
+   * Update only terms
+   */
   TERMS = 'terms',
+  /**
+   * Update terms and translations
+   */
   TERMS_TRANSLATIONS = 'terms_translations',
+  /**
+   * Update only translations
+   */
   TRANSLATIONS = 'translations'
 }
 
+/**
+ * Tags added while uploading a file
+ */
 export enum UpdateTag {
+  /**
+   * Add tags to all terms
+   */
   ALL = 'all',
+  /**
+   * Add tags to new terms
+   */
   NEW = 'new',
+  /**
+   * Add tags to  terms which are in the project but not in the imported file
+   */
   OBSOLETE = 'obsolete',
+  /**
+   * Add tags to terms with translations updates
+   */
   OVERWRITTEN_TRANSLATIONS = 'overwritten_translations'
 }
 
+/**
+ * Type of contributor
+ */
 export enum ContributorType {
+  /**
+   * Administrator. Able to add languages, terms and contributors to a project. Cannot delete a project (admin only)
+   */
   ADMIN = 'administrator',
+  /**
+   * Can update translations for their available languages. Cannot administrate terms nor the project.
+   */
   CONTRIBUTOR = 'contributor'
 }
 
+/**
+ * Object containing tags to apply when uploading a file
+ */
 export type UpdateTagObject = Record<UpdateTag, string[]>
 
+/**
+ * Translation content. Can be a string or an object with singular/plural for the term.
+ */
 export type TranslationContent = string | { one: string, other: string };
 
+/**
+ * Object used when updating a translation for a language.
+ */
 export interface LanguageUpdateObject {
+  /**
+   * Term to update
+   */
   term: string;
+  /**
+   * Context of term
+   */
   context: string;
+  /**
+   * Translation of the term
+   */
   translation: {
+    /**
+     * Translation of the term
+     */
     content: TranslationContent
+    /**
+     * Trigger fuzzy on the translation or not
+     */
     fuzzy?: POBoolean
   }
 }
 
-export interface POERequestBase {
+/**
+ * Base used for all requests
+ */
+export interface POERequestBase {}
 
-}
-
+/**
+ * Base for all responses
+ */
 export interface POEditorResponseBase {
+  /**
+   * Response object
+   */
   response: {
+    /**
+     * Status of the request
+     */
     status: Status;
+    /**
+     * String message from POEditor
+     */
     message: string;
+    /**
+     * Status code
+     */
     code: string;
   }
 }
@@ -378,6 +478,7 @@ interface UpdateLanguageRequestBase extends POERequestBase {
   language: string;
   fuzzy_trigger?: POBoolean;
 }
+
 export interface UpdateLanguageRequest extends UpdateLanguageRequestBase {
   data: LanguageUpdateObject[];
 }
