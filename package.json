@@ -1,6 +1,6 @@
 {
   "name": "poeditor-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An SDK for POEditor",
   "main": "index.js",
   "scripts": {
