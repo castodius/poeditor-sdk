@@ -915,97 +915,250 @@ export interface ListTermsResponse extends POEditorResponseBase {
   }
 }
 
+/**
+ * Request when adding terms to a project
+ */
 export interface AddTermsRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * List of terms to add to project
+   */
   terms: TermBase[];
 }
 
+/**
+ * Actual request when adding terms to a project
+ */
 export interface AddTermsRequestInternal extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Data as string
+   */
   data: string;
 }
 
+/**
+ * Response when adding terms to a project
+ */
 export interface AddTermResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Statistics about terms in the project
+     */
     terms: UpdateStatisticsObject;
   }
 }
 
+/**
+ * Request when updating terms in a project
+ */
 export interface UpdateTermsRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Set to 1 to trigger fuzzy on updated terms
+   */
   fuzzy_trigger?: POBoolean;
+  /**
+   * List of terms to update
+   */
   terms: UpdateTerm[];
 }
 
+/**
+ * Actual request when updating terms
+ */
 export interface UpdateTermsRequestInternal extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Set to 1 to trigger fuzzy on updated terms
+   */
   fuzzy_trigger?: POBoolean;
+  /**
+   * Data as string
+   */
   data: string;
 }
 
+/**
+ * Response when updating terms for a project
+ */
 export interface UpdateTermsResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Statistics about terms in the project
+     */
     terms: UpdateStatisticsObject;
   }
 }
 
+/**
+ * Request when deleting terms in a project
+ */
 export interface DeleteTermsRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Terms to delete
+   */
   terms: DeleteTerm[];
 }
 
+/**
+ * Actual request when deleting terms in a project
+ */
 export interface DeleteTermRequestInternal extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Data as string
+   */
   data: string;
 }
 
+/**
+ * Response when deleting terms for a project
+ */
 export interface DeleteTermsResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Statistics about terms in the project
+     */
     terms: UpdateStatisticsObject;
   }
 }
 
+/**
+ * Request when adding comments to terms
+ */
 export interface AddCommentRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * List of terms and comments to add to them
+   */
   terms: AddTermComment[];
 }
 
+/**
+ * Actual request when adding comments to terms
+ */
 export interface AddCommentRequestInternal extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Data as string
+   */
   data: string;
 }
 
+/**
+ * Response when adding comments to terms
+ */
 export interface AddCommentResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Statistics about terms in the project
+     */
     terms: UpdateStatisticsObject;
   }
 }
 
+/**
+ * Request when listing contributors
+ */
 export interface ListContributorsRequest extends POERequestBase {
+  /**
+   * Project id. Mandatory if language is set
+   */
   id?: number;
+  /**
+   * Language to list contributors for. If setting this you must also set project id.
+   */
   language?: string;
 }
 
+/**
+ * Response when listing contributors
+ */
 export interface ListContributorsResponse extends POEditorResponseBase {
   result: {
+    /**
+     * List of contributors
+     */
     contributors: Contributor[]
   }
 }
 
+/**
+ * Request when adding a contributor to a project
+ */
 export interface AddContributorRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Contributor name
+   */
   name: string;
+  /**
+   * Contributor email. Used to access POEditor
+   */
   email: string;
+  /**
+   * Required if not the contributor is not an administrator
+   */
   language?: string;
+  /**
+   * Set to 1 to make the contributor an administrator
+   */
   admin?: POBoolean;
 }
 
+/**
+ * Response when adding a contributor
+ */
 export interface AddContributorResponse extends POEditorResponseBase {}
 
+/**
+ * Request to remove a contributor from a project
+ */
 export interface RemoveContributorRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Contributor email
+   */
   email: string;
+  /**
+   * If not the contributor will be removed from the project. Does not work for administrators.
+   */
   language?: string;
 }
 
+/**
+ * Response when removing a contributor from a project
+ */
 export interface RemoveContributorResponse extends POEditorResponseBase {}
