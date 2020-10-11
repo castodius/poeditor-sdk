@@ -701,91 +701,216 @@ export interface UploadProjectResponse extends POEditorResponseBase {
   result: UpdateStatistics
 }
 
+/**
+ * Request when syncing a project
+ */
 export interface SyncProjectRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
-  data: string;
+  /**
+   * Data to sync
+   */
+  data: string; // FIXME, separate into exposed and internal
 }
 
+/**
+ * Response when syncing a project
+ */
 export interface SyncProjectResponse extends POEditorResponseBase {
+  /**
+   * Sync project statistics
+   */
   result: UpdateStatistics
 }
 
+/**
+ * Request when exporting a project
+ */
 export interface ExportProjectRequest {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Language to export. ISO 639-1 code
+   */
   language: string;
+  /**
+   * File format you want the exported file to have
+   */
   type: FileType;
+  /**
+   * Filters to apply to data. Can be used to for example only export translated terms
+   */
   filters?: ExportFilter[]
+  /**
+   * Filter results by tags
+   */
   tags?: string[];
+  /**
+   * Set it to terms to order results by 'terms' alphabetically. Unknown what other options there are.
+   */
   order?: string;
 }
 
+/**
+ * Response when exporting a project
+ */
 export interface ExportProjectResponse {
   result: {
+    /**
+     * File url. Perform a GET operation on this url to download your file. Valid for 10 minutes.
+     */
     url: string;
   }
 }
 
+/**
+ * Response when getting available languages
+ */
 export interface AvailableLanguagesResponse extends POEditorResponseBase {
   result: {
+    /**
+     * List of available languages in POEditor
+     */
     languages: Language[]
   }
 }
 
+/**
+ * Request when listing languages for a project
+ */
 export interface ListLanguagesRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
 }
 
+/**
+ * Response when listing languages for a projet
+ */
 export interface ListLanguagesResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Languages for a project and statistics about translations
+     */
     languages: ProjectLanguage[];
   }
 }
 
+/**
+ * Request when adding a language to a project
+ */
 export interface AddLanguageRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Language to add. ISO 639-1 code. Call getAvailableLanguages for a list.
+   */
   language: string;
 }
 
-export interface AddLanguageResponse extends POEditorResponseBase {
+/**
+ * Response when adding a language to a project
+ */
+export interface AddLanguageResponse extends POEditorResponseBase {}
 
-}
-
+/**
+ * Request base when updating a language for a project
+ */
 interface UpdateLanguageRequestBase extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Project language to update
+   */
   language: string;
+  /**
+   * Trigger fuzzy on all new translations
+   */
   fuzzy_trigger?: POBoolean;
 }
 
+/**
+ * Request when updating a language for a project
+ */
 export interface UpdateLanguageRequest extends UpdateLanguageRequestBase {
+  /**
+   * List of terms to update
+   */
   data: LanguageUpdateObject[];
 }
 
+/**
+ * Actual request when updating a language for a project
+ */
 export interface UpdateLanguageRequestInternal extends UpdateLanguageRequestBase {
+  /**
+   * Data as string.
+   */
   data: string;
 }
 
+/**
+ * Response when updating a language for a project
+ */
 export interface UpdateLanguageResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Statistics about translations for a language
+     */
     translations: UpdateStatisticsObject;
   }
 }
 
+/**
+ * Request when deleting a language from a project
+ */
 export interface DeleteLanguageRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Language to remove from project
+   */
   language: string;
 }
 
-export interface DeleteLanguageResponse extends POEditorResponseBase {
+/**
+ * Response when deleting a language from a project
+ */
+export interface DeleteLanguageResponse extends POEditorResponseBase {}
 
-}
-
+/**
+ * Request when listing terms for a project
+ */
 export interface ListTermsRequest extends POERequestBase {
+  /**
+   * Project id
+   */
   id: number;
+  /**
+   * Project language to list terms for
+   */
   language?: string;
 }
 
+/**
+ * Response when listing terms for a project
+ */
 export interface ListTermsResponse extends POEditorResponseBase {
   result: {
+    /**
+     * Project terms
+     */
     terms: Term[];
   }
 }
